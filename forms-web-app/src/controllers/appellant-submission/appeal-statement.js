@@ -7,7 +7,9 @@ const { getTaskStatus } = require('../../services/task.service');
 const sectionName = 'yourAppealSection';
 const taskName = 'appealStatement';
 
-exports.getAppealStatement = (req, res) => {
+exports.getAppealStatement = async (req, res) => {
+  const { appeal } = req.session;
+  req.session.appeal = await createOrUpdateAppeal(appeal);
   res.render(VIEW.APPELLANT_SUBMISSION.APPEAL_STATEMENT, {
     appeal: req.session.appeal,
   });
@@ -19,7 +21,7 @@ exports.postAppealStatement = async (req, res) => {
 
   if (Object.keys(errors).length > 0) {
     res.render(VIEW.APPELLANT_SUBMISSION.APPEAL_STATEMENT, {
-      appeal: req.session.appeal || {},
+      appeal: req.session.appeal,
       errors,
       errorSummary,
     });
@@ -29,15 +31,31 @@ exports.postAppealStatement = async (req, res) => {
   const { appeal } = req.session;
   const task = appeal[sectionName][taskName];
 
-  task.uploadedFile = req.files &&
-    req.files['appeal-upload'] && {
-      name: req.files['appeal-upload'].name,
-    };
+  if ('files' in req && req.files !== null) {
+    if ('appeal-upload' in req.files) {
+      task.uploadedFile = req.files &&
+        req.files['appeal-upload'] && {
+          name: req.files['appeal-upload'].name,
+        };
+    }
+  }
 
   if (body['does-not-include-sensitive-information'] === 'i-confirm') {
     try {
       task.hasSensitiveInformation = false;
       appeal.sectionStates[sectionName][taskName] = getTaskStatus(appeal, sectionName, taskName);
+      appeal.yourAppealSection.appealStatement.hasSensitiveInformation = false;
+      if ('files' in req && req.files !== null) {
+        if ('appeal-upload' in req.files) {
+          // Placeholder code pending availability of documents service api ---------------
+          appeal.yourAppealSection.appealStatement.uploadedFile.name =
+            req.files['appeal-upload'].name;
+          appeal.yourAppealSection.appealStatement.uploadedFile.id =
+            'f3e14d7c-f7c0-4e1f-ae5a-23c94542032f';
+          // ------------------------------------------------------------------------------
+        }
+      }
+
       req.session.appeal = await createOrUpdateAppeal(appeal);
     } catch (e) {
       logger.error(e);
