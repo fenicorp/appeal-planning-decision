@@ -56,7 +56,11 @@ output "key_vault_secrets" {
   value = jsonencode(merge({
     fwa-session-key = random_string.fwa-session-key.result
     docs-blob-storage-connection-string = azurerm_storage_account.documents.primary_connection_string
-    mongodb-connection-url = azurerm_cosmosdb_account.mongodb.connection_strings[0]
+    message-queue = {
+      password = azurerm_servicebus_namespace.message_queue.default_primary_key
+      username = "RootManageSharedAccessKey"
+    }
+    mongodb-connection-url = azurerm_cosmosdb_account.mongodb.connection_strings[0],
   }, { for id, db in var.mongodb_databases :
     "mongodb-${db.name}-store" => {
       url = replace("${azurerm_cosmosdb_account.mongodb.connection_strings[0]}&retrywrites=false", "/?", "/${db.name}?")
@@ -87,6 +91,10 @@ output "kube_load_balancer_ip" {
 output "kube_load_balancer_rg" {
   description = "The rosource group the load balancer IP exists in"
   value = try(azurerm_resource_group.k8s.name, null)
+}
+
+output "message_queue_host" {
+  value = "${azurerm_servicebus_namespace.message_queue.name}.servicebus.windows.net"
 }
 
 /*
