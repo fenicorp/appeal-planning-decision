@@ -1,0 +1,21 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: functions
+  namespace: openfaas-fn
+  annotations:
+    fluxcd.io/automated: "true"
+    filter.fluxcd.io/horizonPublisher: semver:^1.0.0
+spec:
+  releaseName: functions
+  chart:
+    git: git@github.com:foundry4/appeal-planning-decision.git
+    ref: feature/message-queue
+    path: charts/functions
+  values:
+    keyVault:
+      name: pins-uks-vault-3203-simo
+
+    horizonPublisher:
+      image: pinscommonukscontainers3887default.azurecr.io/horizon-publisher:refs-pull-290-merge
