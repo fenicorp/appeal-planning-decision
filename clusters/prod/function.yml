@@ -1,0 +1,22 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: functions
+  namespace: openfaas-fn
+  annotations:
+    fluxcd.io/automated: "true"
+    filter.fluxcd.io/horizon-householder-appeal-publish: semver:1.0.0
+spec:
+  releaseName: functions
+  chart:
+    git: git@github.com:foundry4/appeal-planning-decision.git
+    ref: master
+    path: charts/functions
+  values:
+    keyVault:
+      name: pins-uks-vault-8439-prod
+
+    horizon-householder-appeal-publish:
+      image: pinscommonukscontainers3887default.azurecr.io/horizon-publisher:latest
+      appealsServiceUrl: http://app.app-prod.svc.cluster.local:3000
+      horizonUrl: http://10.0.7.4:8080
