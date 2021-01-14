@@ -40,3 +40,9 @@ spec:
 
     ingress:
       enabled: false
+
+    horizon:
+      amqp:
+        connection:
+          host: pins-uks-message-queue-simon.servicebus.windows.net
+          hostname: pins-uks-message-queue-simon.servicebus.windows.net
