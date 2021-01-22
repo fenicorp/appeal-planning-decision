@@ -16,37 +16,36 @@ Feature: A user checks their answers and wants to submit their appeal
     When section <section> is accessed
     Then the <section> is displayed
     Examples:
-      | section                 |
-      | "who are you"           |
+      | section                                         |
+      # this one should perhaps be "was the original planning application made in your name" but that breaks things...
+      | "About you - Your details"           |
+      # This one is conditional and therefore means the `given` step needs to factor that in when creating the appeal
       | "applicant name"        |
-      | "your-details"          |
-      | "lpa-details"           |
-      | "application-number"    |
-      | "upload-decision"       |
-      | "upload-application"    |
-      | "your appeal statement" |
-      | "supporting documents"  |
-      | "other appeals"         |
-      | "site location"         |
-      | "site ownership"        |
-      | "site access"           |
-      | "site access safety"    |
+      | "Planning application - Application number"     |
+      | "Planning application - Upload decision letter" |
+      | "Planning application - Upload application"     |
+      | "Your appeal - Appeal statement"                |
+      | "Your appeal - Supporting documents"            |
+      | "Appeal site - Site location"                   |
+      | "Appeal site - Site ownership"                  |
+      | "Appeal site - Site access"                     |
+      | "Appeal site - Site safety"                     |
 
   Scenario: AC3a - Presenting updated sections on your appeal - About you
-    Given changes are made for About you section
-    When Check Your Answers is presented
+    Given Check Your Answers is presented
+    When changes are made for About you section
     Then the updated values for About you section are displayed
   Scenario: AC3b - Presenting updated sections on your appeal - About the original planning application
-    Given changes are made for About the original planning application section
-    When Check Your Answers is presented
+    Given Check Your Answers is presented
+    When changes are made for About the original planning application section
     Then the updated values for About the original planning application section are displayed
   Scenario: AC3c - Presenting updated sections on your appeal - About your appeal
-    Given changes are made for About your appeal section
-    When Check Your Answers is presented
+    Given Check Your Answers is presented
+    When changes are made for About your appeal section
     Then the updated values for About your appeal section are displayed
   Scenario: AC3d - Presenting updated sections on your appeal - Visiting the appeal site
-    Given changes are made for Visiting the appeal site section
-    When Check Your Answers is presented
+    Given Check Your Answers is presented
+    When changes are made for Visiting the appeal site section
     Then the updated values for Visiting the appeal site section are displayed
 
 

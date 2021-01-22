@@ -836,3 +836,10 @@ Cypress.Commands.add(
   'goToSiteSafetyPage',
   require('./appeal-navigation/appellant-submission/goToSiteSafetyPage'),
 );
+
+Cypress.Commands.add(
+  'accessSection',
+  require('./appeal-submission-check-answers/accessSection'),
+);
+
+Cypress.Commands.add('clickCheckYourAnswers', require('./appeal-navigation/clickCheckYourAnswers'));
