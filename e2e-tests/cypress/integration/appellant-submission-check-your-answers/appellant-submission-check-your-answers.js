@@ -87,10 +87,14 @@ When('changes are made for About the original planning application section', () 
 });
 
 // note: not sure why "{section}" is an unresolved symbol, this was a copy / paste from another test.
-When('section {section} is accessed', (section) => {
+When('section {string} is accessed', (section) => {
   const { name } = getTask(section);
   cy.accessSection(name)
 });
+
+When('Check Your Answers is accessed', ()=>{
+  cy.clickCheckYourAnswers();
+})
 
 Then('the user should be presented with the Terms and Conditions of the service', () => {
   cy.confirmSubmissionPage();
@@ -98,7 +102,7 @@ Then('the user should be presented with the Terms and Conditions of the service'
 
 Then('the appeal information is presented', () => {});
 
-Then('the {section} is displayed', (section) => {
+Then('the {string} is displayed', (section) => {
   const { url } = getTask(section);
   cy.userIsNavigatedToPage(url)
 });
