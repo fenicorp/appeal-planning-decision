@@ -808,7 +808,7 @@ Cypress.Commands.add(
 
 Cypress.Commands.add(
   'accessSection',
-  require('./appeal-submission-check-answers/accessSection'),
+  require('./appellant-submission-check-your-answers/accessSection'),
 );
 
 Cypress.Commands.add('clickCheckYourAnswers', require('./appeal-navigation/clickCheckYourAnswers'));

@@ -8,7 +8,7 @@ Feature: A user checks their answers and wants to submit their appeal
 
   Scenario: AC1 - Accessing check your answers from the task list
     Given the completed task list page is displayed
-    When "check your answers" is accessed
+    When Check Your Answers is accessed
     Then the appeal information is presented
 
   Scenario Outline: AC2 - Accessing an appeal section from check your answers
