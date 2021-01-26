@@ -631,6 +631,11 @@ Cypress.Commands.add(
 );
 
 Cypress.Commands.add(
+  'confirmNavigationPlanningApplicationNumberPage',
+  require('./appeal-navigation-confirmation/appellant-submission/confirmNavigationPlanningApplicationNumberPage'),
+);
+
+Cypress.Commands.add(
   'provideAreYouOriginalApplicant',
   require('./appellant-submission-your-details/provideAreYouOriginalApplicant'),
 );
