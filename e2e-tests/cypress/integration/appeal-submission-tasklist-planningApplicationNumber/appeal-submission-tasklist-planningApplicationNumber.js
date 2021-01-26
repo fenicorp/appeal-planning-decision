@@ -11,3 +11,8 @@ When('the user selects to provide their planning application number', () => {
 Then('the user should be presented with opportunity to provide their planning application number', () => {
   cy.confirmUserPresentedWithProvidePlanningApplicationNumber();
 });
+
+Then('the multiple other documents are correctly displayed', () => {
+  cy.wait(0);
+});
+

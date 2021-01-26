@@ -48,7 +48,6 @@ Feature: A user checks their answers and wants to submit their appeal
     When changes are made for Visiting the appeal site section
     Then the updated values for Visiting the appeal site section are displayed
 
-
   Scenario: AC4a - Multiple document upload section - multiple documents are correctly displayed
     Given the appeal has more than one other documents
     When Check Your Answers is presented
