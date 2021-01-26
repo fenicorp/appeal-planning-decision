@@ -6,6 +6,11 @@ function statusTemp() {
   return TASK_STATUS.NOT_STARTED;
 }
 
+function statusCheckYourAnswer() {
+  // TODO: needs to check questionnaire status to allow check
+  return TASK_STATUS.CANNOT_START_YET;
+}
+
 const SECTIONS = {
   aboutAppealSection: {
     submissionAccuracy: {
@@ -73,6 +78,12 @@ const SECTIONS = {
     developmentOrNeighbourhood: {
       href: '#',
       rule: statusTemp,
+    },
+    submitQuestionnaireSection: {
+      checkYourAnswers: {
+        href: '#',
+        rule: statusCheckYourAnswer,
+      },
     },
   },
 };
