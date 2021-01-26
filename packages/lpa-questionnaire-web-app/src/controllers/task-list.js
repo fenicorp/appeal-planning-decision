@@ -5,39 +5,48 @@ const countTasks = require('../lib/count-task');
 const HEADERS = {
   aboutAppealSection: 'About the appeal',
   submissionAccuracy: "Review accuracy of the appellant's submission",
+  extraConditions: '',
+  areaAppeals: '',
+  aboutAppealSiteSection: '',
+  aboutSite: '',
+  requiredDocumentsSection: '',
+  plansDecision: '',
+  officersReport: '',
+  optionalDocumentsSection: '',
+  interestedPartiesApplication: '',
+  representationsInterestedParties: '',
+  interestedPartiesAppeal: '',
+  siteNotices: '',
+  planningHistory: '',
+  statutoryDevelopment: '',
+  otherPolicies: '',
+  supplementaryPlanningDocuments: '',
+  developmentOrNeighbourhood: '',
 };
 
 function buildTaskLists(questionnaire) {
-  const taskList = [];
-  const sections = SECTIONS;
-  Object.keys(sections).forEach((sectionName) => {
-    const section = sections[sectionName];
-
-    const task = {
+  return Object.keys(SECTIONS).map((sectionId) => {
+    const section = SECTIONS[sectionId];
+    return {
       heading: {
-        text: HEADERS[sectionName],
+        text: HEADERS[sectionId],
       },
-      items: [],
+      items: Object.keys(section).map((subSectionId) => {
+        const subSection = section[subSectionId];
+        const status = getTaskStatus(questionnaire, sectionId, subSectionId);
+
+        return {
+          text: HEADERS[subSectionId],
+          href: subSection.href,
+          attributes: {
+            name: subSectionId,
+            [`${subSectionId}-status`]: status,
+          },
+          status,
+        };
+      }),
     };
-
-    Object.keys(section).forEach((subSectionName) => {
-      const subSection = section[subSectionName];
-
-      const status = getTaskStatus(questionnaire, sectionName, subSectionName);
-
-      task.items.push({
-        text: HEADERS[subSectionName],
-        href: subSection.href,
-        attributes: {
-          name: subSectionName,
-          [`${subSectionName}-status`]: status,
-        },
-        status,
-      });
-    });
-    taskList.push(task);
   });
-  return taskList;
 }
 
 exports.getTaskList = (req, res) => {
