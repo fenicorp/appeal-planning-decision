@@ -1,6 +1,5 @@
 const { SECTIONS } = require('../services/task.service');
 const { VIEW } = require('../lib/views');
-const countTasks = require('../lib/count-task');
 
 const HEADERS = {
   aboutAppealSection: 'About the appeal',
@@ -59,11 +58,9 @@ exports.getTaskList = (req, res) => {
   const { questionnaire } = req.session;
   const sections = buildTaskLists(questionnaire);
   const applicationStatus = 'Application incomplete';
-  const sectionInfo = countTasks(sections);
 
   res.render(VIEW.TASK_LIST, {
     applicationStatus,
-    sectionInfo,
     sections,
   });
 };
