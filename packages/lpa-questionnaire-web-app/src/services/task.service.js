@@ -1,4 +1,3 @@
-const { VIEW } = require('../lib/views');
 const TASK_STATUS = require('./task-status/task-statuses');
 
 function statusTemp() {
@@ -143,13 +142,7 @@ const HEADERS = {
   checkYourAnswers: 'Check your answers',
 };
 
-// Get next section task
-const getNextTask = () => {
-  return { href: `/${VIEW.TASK_LIST}` };
-};
-
 module.exports = {
   HEADERS,
   SECTIONS,
-  getNextTask,
 };
