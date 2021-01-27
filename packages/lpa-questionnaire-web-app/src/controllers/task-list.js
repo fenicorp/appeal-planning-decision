@@ -1,4 +1,4 @@
-const { getTaskStatus, SECTIONS } = require('../services/task.service');
+const { SECTIONS } = require('../services/task.service');
 const { VIEW } = require('../lib/views');
 const countTasks = require('../lib/count-task');
 
@@ -26,24 +26,27 @@ const HEADERS = {
   checkYourAnswers: 'Check your answers',
 };
 
+/**
+ * @name buildTaskLists
+ * @description Builds array of section objects, each has an array of tasks
+ * @param questionnaire Questionnaire details from request
+ * @return {array} Array of section objects
+ */
 function buildTaskLists(questionnaire) {
-  return Object.keys(SECTIONS).map((sectionId) => {
-    const section = SECTIONS[sectionId];
-
+  return SECTIONS.map(({ sectionId, tasks }) => {
     return {
       heading: {
         text: HEADERS[sectionId],
       },
-      items: Object.keys(section).map((subSectionId) => {
-        const subSection = section[subSectionId];
-        const status = getTaskStatus(questionnaire, sectionId, subSectionId);
+      tasks: tasks.map(({ taskId, href, rule }) => {
+        const status = rule(questionnaire);
 
         return {
-          text: HEADERS[subSectionId],
-          href: subSection.href,
+          text: HEADERS[taskId],
+          href,
           attributes: {
-            name: subSectionId,
-            [`${subSectionId}-status`]: status,
+            name: taskId,
+            [`${taskId}-status`]: status,
           },
           status,
         };
@@ -55,9 +58,7 @@ function buildTaskLists(questionnaire) {
 exports.getTaskList = (req, res) => {
   const { questionnaire } = req.session;
   const sections = buildTaskLists(questionnaire);
-
   const applicationStatus = 'Application incomplete';
-
   const sectionInfo = countTasks(sections);
 
   res.render(VIEW.TASK_LIST, {
