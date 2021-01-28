@@ -10,6 +10,8 @@ variable "location" {
 variable "prefix" {
   description = "Resource prefix"
   type = string
+  default = "fenis4ycommon"
+
 }
 
 /*

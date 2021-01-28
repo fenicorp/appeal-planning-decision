@@ -20,6 +20,7 @@ variable "pins_key_vault" {
 variable "prefix" {
   description = "Resource prefix"
   type = string
+  default = "fenis4y"
 }
 
 /*
