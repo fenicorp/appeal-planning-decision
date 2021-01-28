@@ -38,6 +38,8 @@ jobs:
       matrix:
         include:
           - branch: refs/heads/master
+            environment: fenis4y
+          - branch: refs/heads/master
             environment: dev
           - branch: refs/heads/master
             environment: preprod

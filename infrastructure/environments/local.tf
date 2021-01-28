@@ -1,5 +1,5 @@
 locals {
-  app_name = "pins-env"
+  app_name = "fenis4y-env"
   current_ip = chomp(data.http.myip.body)
   horizon_count = var.horizon_enabled ? 1 : 0
   location = substr(var.location, 0, 3) # short version of the location

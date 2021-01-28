@@ -1,5 +1,5 @@
 locals {
-  app_name = "pins-common"
+  app_name = "fenis4y-common"
   location = substr(var.location, 0, 3)
   lock_delete = "CanNotDelete"
   lock_none = null # Doesn't add tag

@@ -6,8 +6,8 @@
 
 terraform {
   backend "azurerm" {
-    resource_group_name = "pins-uk-terraform-rg"
-    storage_account_name = "pinsodtterraform"
+    resource_group_name = "fenis4y-rg"
+    storage_account_name = "fenistorage"
     container_name = "tfstate"
     key = "common.tfstate"
   }
@@ -18,8 +18,8 @@ provider "azurerm" {
 }
 
 provider "github" {
-  organization = var.github_org_name
   token = var.github_token
+  organization = var.github_org_name
 }
 
 data "azurerm_client_config" "current" {}

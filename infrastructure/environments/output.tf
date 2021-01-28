@@ -14,17 +14,17 @@ output "app-name" {
 output "containers_password" {
   description = "Password for the container registry"
   sensitive = true
-  value = data.azurerm_container_registry.pins.admin_password
+  value = data.azurerm_container_registry.fenis4y.admin_password
 }
 
 output "containers_server" {
   description = "Server URL for the container registry"
-  value = data.azurerm_container_registry.pins.login_server
+  value = data.azurerm_container_registry.fenis4y.login_server
 }
 
 output "containers_username" {
   description = "Username for the container registry"
-  value = data.azurerm_container_registry.pins.admin_username
+  value = data.azurerm_container_registry.fenis4y.admin_username
 }
 
 /*
